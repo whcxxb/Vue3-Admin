@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "typeRoots": [
+      "node_modules/@types", // 默认值
+      "src/types"
+    ],
     "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
@@ -14,6 +18,7 @@
     "noEmit": true,
     "baseUrl": "./",
     "paths": {
+      "@": ["src"],
       "@/*": ["src/*"]
     }
   },
