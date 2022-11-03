@@ -1,2 +1,1 @@
-import * as fs from 'fs'
-console.log(fs)
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'

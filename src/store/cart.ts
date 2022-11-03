@@ -1,25 +1,27 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import { useUserStore } from './user'
-// 接口 name string  amount number
-
 export const useCartStore = defineStore({
   id: 'cart',
   state: () => ({
     rawItems: [] as any[]
   }),
   getters: {
-    items: (state) =>
-      state.rawItems.reduce((items, item) => {
-        const existingItem = items.find((it: any) => it.name === item)
-
-        if (!existingItem) {
-          items.push({ name: item, amount: 1 })
+    items: (state) => {
+      const arr: any[] = []
+      state.rawItems.map((item) => {
+        const itemName = arr.find((i) => i.name === item)
+        if (!itemName) {
+          arr.push({
+            name: item,
+            amount: 1
+          })
         } else {
-          existingItem.amount++
+          itemName.amount++
         }
+      })
 
-        return items
-      }, [])
+      return arr
+    }
   },
   actions: {
     addItem(name: any) {
