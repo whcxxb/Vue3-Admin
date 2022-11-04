@@ -18,43 +18,42 @@
         Clear the cart
       </button>
     </form>
-    <h2>{{ cart.items }}</h2>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useUserStore } from '@/store/user'
-import { useCartStore } from '@/store/cart'
-const user = useUserStore()
-const cart = useCartStore()
-const itemName = ref('')
-const addItemToCart = () => {
-  if (!itemName.value) return
-  cart.addItem(itemName.value)
-  itemName.value = ''
-}
-const buy = async () => {
-  const n = await cart.purchaseItems()
+  import { ref } from 'vue'
+  import { useUserStore } from '@/store/user'
+  import { useCartStore } from '@/store/cart'
+  const user = useUserStore()
+  const cart = useCartStore()
+  const itemName = ref('')
+  const addItemToCart = () => {
+    if (!itemName.value) return
+    cart.addItem(itemName.value)
+    itemName.value = ''
+  }
+  const buy = async () => {
+    const n = await cart.purchaseItems()
 
-  console.log(`Bought ${n} items`)
+    console.log(`Bought ${n} items`)
 
-  cart.rawItems = []
-}
-const clearCart = () => {
-  if (window.confirm('Are you sure you want to clear the cart?')) {
     cart.rawItems = []
   }
-}
+  const clearCart = () => {
+    if (window.confirm('Are you sure you want to clear the cart?')) {
+      cart.rawItems = []
+    }
+  }
 </script>
 
 <style lang="less" scoped>
-.content {
-  margin: 50px;
-  button,
-  input {
-    margin-right: 0.5rem;
-    margin-bottom: 0.5rem;
+  .content {
+    margin: 50px;
+    button,
+    input {
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
   }
-}
 </style>
