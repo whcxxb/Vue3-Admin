@@ -3,15 +3,27 @@
   import { useRouter } from 'vue-router'
   const router = useRouter()
   const goTo = (name: string, id?: string) => {
-    router.push({
-      name: name,
-      params: { id: id }
-    })
+    if (id) {
+      router.push({
+        name: name,
+        params: { id: id }
+      })
+    } else {
+      router.push({
+        name: name
+      })
+    }
   }
 </script>
 <template>
-  <button @click="goTo('Home')">home</button>
-  <button @click="goTo('About', '123')">about</button>
+  <!-- <el-button @click="goTo('Home')">Home</el-button>
+  <el-button @click="goTo('About', '123')">About</el-button> -->
   <router-view />
 </template>
-<style lang="less" scoped></style>
+<style lang="less">
+  #app {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+</style>

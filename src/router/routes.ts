@@ -14,14 +14,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/about:id',
     name: 'About',
-    component: () => import('@/view/about/index.vue'),
-    props: true
+    component: () => import('@/view/about/index.vue')
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/view/login/index.vue'),
-    props: true
+    component: () => import('@/view/login/index.vue')
   },
   {
     path: '/:pathMatch(.*)*',

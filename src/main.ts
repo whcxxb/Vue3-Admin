@@ -2,14 +2,16 @@ import { createApp } from 'vue'
 import './style/base.less'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import { createPinia } from 'pinia'
+const pinia = createPinia()
 
-console.log(import.meta.env.BASE_URL)
-console.log(import.meta.env.PROD)
-console.log(import.meta.env.DEV)
-
+// message弹窗样式
+import 'element-plus/es/components/message/style/css'
+// console.log(import.meta.env.BASE_URL)
+// console.log(import.meta.env.PROD)
+// console.log(import.meta.env.DEV)
 const app = createApp(App)
-app.use(store)
+app.use(pinia)
 app.use(router)
 app.mount('#app')
 

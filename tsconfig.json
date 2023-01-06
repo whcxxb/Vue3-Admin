@@ -4,6 +4,7 @@
       "node_modules/@types", // 默认值
       "src/types"
     ],
+    "types": ["element-plus/global"],
     "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
