@@ -1,5 +1,15 @@
 <script setup lang="ts">
-  defineProps(['title'])
+  // defineProps(['title'])
+  // defineProps({
+  //   // title: {
+  //   //   type: String,
+  //   //   required: true
+  //   // }
+  //   title: String
+  // })
+  defineProps<{
+    title?: string
+  }>()
   defineEmits(['remove'])
 </script>
 <template>
