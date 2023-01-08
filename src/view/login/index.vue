@@ -1,5 +1,8 @@
 <script setup lang="ts">
   import { reactive } from 'vue'
+  import { useRouter } from 'vue-router'
+  import axios from '@/utils/request'
+  const router = useRouter()
   const form = reactive({
     userName: '',
     password: ''
@@ -7,6 +10,28 @@
   const onSubmit = () => {
     console.log('submit!')
   }
+  const goRegister = (n: number) => {
+    if (n === 1) {
+      router.push({
+        path: '/register',
+        query: {
+          type: 'register'
+        }
+      })
+    } else {
+      router.push({
+        path: '/forget',
+        query: {
+          type: 'forget'
+        }
+      })
+    }
+  }
+  const getUser = async () => {
+    const res = await axios.get('')
+    console.log(res)
+  }
+  getUser()
 </script>
 <template>
   <div class="container">
@@ -24,18 +49,18 @@
             <el-input v-model="form.password" type="password" placeholder="密码" show-password />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">登录</el-button>
+            <el-button type="primary" @click="onSubmit">🚀 登录</el-button>
           </el-form-item>
         </el-form>
       </div>
       <div class="register">
-        <a href="javascript:void;">注册</a>
-        <a href="javascript:void;">忘记密码</a>
+        <a href="javascript:void;" @click.prevent="goRegister(1)">注册</a>
+        <a href="javascript:void;" @click.prevent="goRegister(2)">忘记密码</a>
       </div>
     </el-card>
   </div>
 </template>
-<style lang="less">
+<style lang="less" scoped>
   .container {
     width: 100%;
     height: 100vh;

@@ -19,7 +19,24 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/view/login/index.vue')
+    component: () => import('@/view/login/index.vue'),
+    meta: {
+      title: '登录'
+    }
+  },
+  {
+    path: '/register',
+    alias: '/forget',
+    name: 'register',
+    component: () => import('@/view/login/register.vue'),
+    meta: {
+      title: '注册'
+    },
+    beforeEnter: (to) => {
+      if (to.path === '/forget') {
+        to.meta.title = '忘记密码'
+      }
+    }
   },
   {
     path: '/:pathMatch(.*)*',

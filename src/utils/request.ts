@@ -11,7 +11,7 @@ interface Result {
 interface ResultData<T = any> extends Result {
   data?: T
 }
-const URL = 'http://jsonplaceholder.typicode.com/'
+const URL = 'http://127.0.0.1:3000/api'
 enum RequestEnums {
   TIMEOUT = 20000,
   OVERDUE = 600, // 登录失效
