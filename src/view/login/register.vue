@@ -1,6 +1,8 @@
 <script setup lang="ts">
   import { reactive, ref } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
+  import { postAction } from '@/utils/http/api'
+  import { ElMessage } from 'element-plus'
   const router = useRouter()
   const route = useRoute()
   const form = reactive({
@@ -11,7 +13,12 @@
     code: ''
   })
   const onSubmit = () => {
-    console.log('submit!')
+    // console.log('submit!')
+    if (form.password === form.confirmPassword) {
+      registerUser()
+    } else {
+      ElMessage.error('请确认密码')
+    }
   }
   const backLogin = (e: Event) => {
     e.preventDefault()
@@ -19,6 +26,14 @@
   }
   // 邮箱后缀
   const selectMail = ref<string>('@qq.com')
+
+  const registerUser = async () => {
+    const res = await postAction('/register', {
+      username: form.userMail + selectMail.value,
+      password: form.password
+    })
+    console.log(res)
+  }
 </script>
 <template>
   <div class="container">
@@ -43,10 +58,10 @@
               </template>
             </el-input>
           </el-form-item>
-          <el-form-item label="" class="getCode">
+          <!-- <el-form-item label="" class="getCode">
             <el-input v-model="form.code" type="password" placeholder="验证码" show-password />
             <el-button type="primary">获取验证码</el-button>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="">
             <el-input v-model="form.password" type="password" placeholder="密码" show-password />
           </el-form-item>

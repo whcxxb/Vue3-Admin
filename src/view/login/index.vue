@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { reactive } from 'vue'
   import { useRouter } from 'vue-router'
-  import axios from '@/utils/request'
+  import { getAction } from '@/utils/http/api'
   const router = useRouter()
   const form = reactive({
     userName: '',
@@ -28,7 +28,7 @@
     }
   }
   const getUser = async () => {
-    const res = await axios.get('')
+    const res = await getAction('/userlist')
     console.log(res)
   }
   getUser()
