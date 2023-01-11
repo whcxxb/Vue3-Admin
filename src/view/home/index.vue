@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useRouter, useRoute } from 'vue-router'
-  import { useUserStore } from '@/store/users'
+  import { useUserStore } from '@/store/user'
   import axios from '@/utils/request'
   import { ElMessage } from 'element-plus'
   const router = useRouter()
