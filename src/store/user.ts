@@ -4,3 +4,5 @@
 //   id: 'user',
 //   state: () => ({ name: 'xiaobai' })
 // })
+
+export {}

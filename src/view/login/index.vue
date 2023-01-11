@@ -1,14 +1,36 @@
 <script setup lang="ts">
-  import { reactive } from 'vue'
+  import { reactive, ref } from 'vue'
   import { useRouter } from 'vue-router'
-  import { getAction } from '@/utils/http/api'
+  import { getAction, postAction } from '@/utils/http/api'
+  import { ElMessage } from 'element-plus'
+  import { ElNotification } from 'element-plus'
   const router = useRouter()
   const form = reactive({
-    userName: '',
+    username: '',
     password: ''
   })
-  const onSubmit = () => {
-    console.log('submit!')
+  const isLoading = ref<boolean>(false)
+  const onSubmit = async () => {
+    isLoading.value = true
+    if (form.username.trim() === '' || form.password.trim() === '') {
+      ElNotification({
+        title: '登录失败',
+        message: '邮箱或密码不能为空',
+        type: 'error'
+      })
+      setTimeout(() => {
+        isLoading.value = false
+      }, 500)
+      return
+    }
+    const res: any = await postAction('/login', form)
+    console.log(res)
+    if (res.success) {
+      form.username = ''
+      form.password = ''
+      isLoading.value = false
+      router.push('/home')
+    }
   }
   const goRegister = (n: number) => {
     if (n === 1) {
@@ -27,11 +49,11 @@
       })
     }
   }
-  const getUser = async () => {
-    const res = await getAction('/userlist')
-    console.log(res)
-  }
-  getUser()
+  // const getUser = async () => {
+  //   const res = await getAction('/userlist')
+  //   console.log(res)
+  // }
+  // getUser()
 </script>
 <template>
   <div class="container">
@@ -41,15 +63,26 @@
         <div class="row-2">看到更远更真实的世界~~</div>
       </div>
       <div class="login">
-        <el-form :model="form" size="large">
+        <el-form ref="formRef" :model="form" size="large">
           <el-form-item label="">
-            <el-input v-model="form.userName" placeholder="邮箱" />
+            <el-input v-model="form.username" placeholder="邮箱" />
           </el-form-item>
           <el-form-item label="">
             <el-input v-model="form.password" type="password" placeholder="密码" show-password />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">🚀 登录</el-button>
+            <el-button color="#3867d6" type="primary" :loading="isLoading" @click="onSubmit()">
+              <template #default>
+                <span v-show="!isLoading">🚀 登录</span>
+              </template>
+              <template #loading>
+                <el-icon class="is-loading">
+                  <svg class="svg-icon" aria-hidden="true">
+                    <use xlink:href="#icon-jiazai"></use>
+                  </svg>
+                </el-icon>
+              </template>
+            </el-button>
           </el-form-item>
         </el-form>
       </div>
