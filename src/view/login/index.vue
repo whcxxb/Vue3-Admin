@@ -1,10 +1,12 @@
 <script setup lang="ts">
-  import { reactive, ref } from 'vue'
+  import { reactive, ref, onMounted } from 'vue'
+  import { useUserStore } from '@/store/user'
   import { useRouter } from 'vue-router'
-  import { getAction, postAction } from '@/utils/http/api'
-  import { ElMessage } from 'element-plus'
+  import { postAction } from '@/utils/http/api'
+  // import { ElMessage } from 'element-plus'
   import { ElNotification } from 'element-plus'
   const router = useRouter()
+  const userStore = useUserStore()
   const form = reactive({
     username: '',
     password: ''
@@ -30,8 +32,23 @@
       form.password = ''
       isLoading.value = false
       router.push('/home')
+      userStore.setUserInfo(res.data.username, res.data.tokenStr)
+    } else {
+      ElNotification({
+        title: '登录失败',
+        message: res.message,
+        type: 'error'
+      })
+      isLoading.value = false
     }
   }
+  onMounted(() => {
+    document.onkeydown = (e: any) => {
+      if (e.keyCode === 13) {
+        onSubmit()
+      }
+    }
+  })
   const goRegister = (n: number) => {
     if (n === 1) {
       router.push({
@@ -49,6 +66,7 @@
       })
     }
   }
+
   // const getUser = async () => {
   //   const res = await getAction('/userlist')
   //   console.log(res)
@@ -56,10 +74,12 @@
   // getUser()
 </script>
 <template>
-  <div class="container">
+  <div class="login-container h-screen w-screen">
     <el-card class="box-card" :body-style="{}">
       <div class="title">
-        <div class="row-1"><img src="~@/assets/login-icon.jpg" alt="" /></div>
+        <div class="row-1">
+          <img src="https://avatars.githubusercontent.com/u/20062144?v=4" alt="" />
+        </div>
         <div class="row-2">看到更远更真实的世界~~</div>
       </div>
       <div class="login">
@@ -71,7 +91,7 @@
             <el-input v-model="form.password" type="password" placeholder="密码" show-password />
           </el-form-item>
           <el-form-item>
-            <el-button color="#3867d6" type="primary" :loading="isLoading" @click="onSubmit()">
+            <el-button color="#3867d6" type="primary" :loading="isLoading" @click="onSubmit">
               <template #default>
                 <span v-show="!isLoading">🚀 登录</span>
               </template>
@@ -94,11 +114,9 @@
   </div>
 </template>
 <style lang="less" scoped>
-  .container {
-    width: 100%;
-    height: 100vh;
+  .login-container {
     overflow: hidden;
-    background-color: #f5f5f5;
+    background-color: #f3f4f6;
     position: relative;
     .box-card {
       width: 560px;
@@ -109,11 +127,12 @@
       transform: translate(-50%, -50%);
       .title {
         text-align: center;
-        margin: 20px 0px;
+        margin: 0px 0px 20px 0px;
         .row-1 {
           width: 80px;
           height: 80px;
           margin: 0 auto;
+          margin-bottom: 10px;
           cursor: pointer;
           img {
             width: 100%;

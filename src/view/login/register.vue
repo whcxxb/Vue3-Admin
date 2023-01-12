@@ -36,10 +36,12 @@
   }
 </script>
 <template>
-  <div class="container">
+  <div class="re-container">
     <el-card class="box-card" :body-style="{}">
       <div class="title">
-        <div class="row-1"><img src="~@/assets/login-icon.jpg" alt="" /></div>
+        <div class="row-1">
+          <img src="https://avatars.githubusercontent.com/u/20062144?v=4" alt="" />
+        </div>
         <div class="row-2">看到更远更真实的世界~~</div>
       </div>
       <div class="login">
@@ -74,10 +76,14 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button v-if="route.query?.type === 'register'" type="primary" @click="onSubmit"
+            <el-button
+              color="#3867d6"
+              v-if="route.query?.type === 'register'"
+              type="primary"
+              @click="onSubmit"
               >☺ 注册</el-button
             >
-            <el-button v-else type="primary" @click="onSubmit">重置密码</el-button>
+            <el-button color="#3867d6" v-else type="primary" @click="onSubmit">重置密码</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -88,26 +94,27 @@
   </div>
 </template>
 <style lang="less" scoped>
-  .container {
+  .re-container {
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    background-color: #f5f5f5;
+    background-color: #f3f4f6;
     position: relative;
     .box-card {
       width: 560px;
-      height: 600px;
+      height: 500px;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       .title {
         text-align: center;
-        margin: 20px 0px;
+        margin: 0px 0px 20px 0px;
         .row-1 {
           width: 80px;
           height: 80px;
           margin: 0 auto;
+          margin-bottom: 10px;
           cursor: pointer;
           img {
             width: 100%;

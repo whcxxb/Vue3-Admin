@@ -1,17 +1,25 @@
-import axios from 'axios'
-
+import axios, { AxiosRequestConfig } from 'axios'
+import { useUserStore } from '@/store/user'
+import router from '@/router'
 const http = axios.create({
-  baseURL: 'http://127.0.0.1:3000/api',
+  baseURL: 'http://101.42.17.104:3000/api',
   timeout: 1000,
   headers: {
     'Content-Type': 'application/json'
   }
 })
+const userStore = useUserStore()
 
 // 请求拦截器
 http.interceptors.request.use(
-  (config) => {
-    // 在发送请求之前做些什么
+  (config: any) => {
+    //排除登录请求和注册请求
+    if (config.url === '/login' || config.url === '/register') {
+      return config
+    }
+    if (userStore.token) {
+      config.headers.Authorization = 'Bearer ' + userStore.token
+    }
     return config
   },
   (error) => {
@@ -22,7 +30,6 @@ http.interceptors.request.use(
 // 响应拦截器
 http.interceptors.response.use(
   (response) => {
-    // 对响应数据做点什么
     return response.data
   },
   (error) => {
@@ -45,6 +52,11 @@ http.interceptors.response.use(
           break
         case 401:
           console.error('未授权，请重新登录!')
+          console.log(router)
+          userStore.removeUserInfo()
+          router.replace({
+            path: '/login'
+          })
           break
         default:
           console.error(data.message)

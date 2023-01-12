@@ -6,7 +6,7 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from) => {
+router.beforeEach((to) => {
   const { title } = to.meta
   document.title = (title as string) || 'Vue3.0 + TS + Vite + Element Plus'
   // 不能将类型“{}”分配给类型“string

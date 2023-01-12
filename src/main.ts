@@ -1,16 +1,20 @@
 import { createApp } from 'vue'
 import './style/base.less'
+import 'uno.css'
 import './assets/iconfont/iconfont.js'
 import App from './App.vue'
 import router from './router'
 import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
 
 // 弹窗样式
 import 'element-plus/theme-chalk/el-loading.css'
 import 'element-plus/theme-chalk/el-message.css'
 import 'element-plus/theme-chalk/el-notification.css'
 import 'element-plus/theme-chalk/el-message-box.css'
+
 // console.log(import.meta.env.BASE_URL)
 // console.log(import.meta.env.PROD)
 // console.log(import.meta.env.DEV)

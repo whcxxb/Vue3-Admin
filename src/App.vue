@@ -9,5 +9,7 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
+    // font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    //   'Courier New', monospace;
   }
 </style>

@@ -4,6 +4,7 @@ import * as path from 'path'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Unocss from 'unocss/vite'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -14,6 +15,9 @@ export default defineConfig({
     }),
     Components({
       resolvers: [ElementPlusResolver()]
+    }),
+    Unocss({
+      /* options */
     })
   ],
   resolve: {
