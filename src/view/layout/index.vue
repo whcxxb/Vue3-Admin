@@ -8,17 +8,20 @@
         <div class="header">
           <div>{{ menuName }}</div>
           <div>
-            <el-dropdown>
+            <el-dropdown trigger="click">
               <span class="el-dropdown-link">
-                <el-icon><Avatar /></el-icon> {{ userName }}
+                <!-- <el-icon><Avatar /></el-icon> {{ userName }} -->
+                <img src="https://avatars.githubusercontent.com/u/20062144?v=4" alt="" />
+                <!-- <el-avatar :size="30" src="https://avatars.githubusercontent.com/u/20062144?v=4" /> -->
+                {{ userName }}
                 <el-icon class="el-icon--right">
                   <arrow-down />
                 </el-icon>
               </span>
               <template #dropdown>
                 <el-dropdown-menu>
-                  <el-dropdown-item>个人中心</el-dropdown-item>
-                  <el-dropdown-item>登出</el-dropdown-item>
+                  <el-dropdown-item :icon="Avatar">个人中心</el-dropdown-item>
+                  <el-dropdown-item :icon="CloseBold" @click="signOut">登出</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
@@ -42,7 +45,7 @@
   import { RouterView, useRoute, useRouter } from 'vue-router'
   import { useUserStore } from '@/store/user'
   import menus from './menus.vue'
-  import { ArrowDown, Avatar } from '@element-plus/icons-vue'
+  import { ArrowDown, Avatar, CloseBold } from '@element-plus/icons-vue'
 
   const menuName = ref<any>('')
   const route = useRoute()
@@ -57,6 +60,12 @@
   const userStore = useUserStore()
   const userName = ref<string>('')
   userName.value = userStore.getUserName
+
+  // 登出
+  const signOut = () => {
+    userStore.removeUserInfo()
+    router.push('/login')
+  }
 </script>
 
 <style lang="less" scoped>
@@ -87,9 +96,14 @@
         .el-dropdown-link {
           font-size: 18px;
           cursor: pointer;
-          color: #000;
           display: flex;
           align-items: center;
+          img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+          }
         }
       }
     }
