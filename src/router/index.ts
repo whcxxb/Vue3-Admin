@@ -14,10 +14,7 @@ const router = createRouter({
 router.beforeEach((to) => {
   const { title } = to.meta
   document.title = (title as string) || 'blogAdmin'
-  const user = window.localStorage.getItem('user')
-  console.log(user)
-
-  const token = JSON.parse(user as string).token
+  const token = JSON.parse(window.localStorage.getItem('user') as string)?.token
   if (!token && to.path !== '/login') {
     return '/login'
   }
