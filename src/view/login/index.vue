@@ -31,7 +31,7 @@
       form.username = ''
       form.password = ''
       isLoading.value = false
-      router.push('/home')
+      router.push('/dashboard')
       userStore.setUserInfo(res.data.username, res.data.tokenStr)
     } else {
       ElNotification({
@@ -91,7 +91,7 @@
             <el-input v-model="form.password" type="password" placeholder="密码" show-password />
           </el-form-item>
           <el-form-item>
-            <el-button color="#3867d6" type="primary" :loading="isLoading" @click="onSubmit">
+            <el-button color="#36ad6a" type="primary" :loading="isLoading" @click="onSubmit">
               <template #default>
                 <span v-show="!isLoading">🚀 登录</span>
               </template>
@@ -116,7 +116,7 @@
 <style lang="less" scoped>
   .login-container {
     overflow: hidden;
-    background-color: #f3f4f6;
+    background-color: #f2f6fc;
     position: relative;
     .box-card {
       width: 560px;
@@ -154,6 +154,9 @@
           width: 100%;
           height: 50px;
           font-size: 20px;
+        }
+        .el-button {
+          color: #fff;
         }
       }
       .register {

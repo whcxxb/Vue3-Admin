@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@element-plus/icons-vue': 1.x
   '@types/node': ^18.11.9
   '@typescript-eslint/eslint-plugin': ^5.42.0
   '@typescript-eslint/parser': ^5.42.0
@@ -27,6 +28,7 @@ specifiers:
   vue-tsc: ^1.0.10
 
 dependencies:
+  '@element-plus/icons-vue': 1.1.4_vue@3.2.41
   '@vueuse/core': 9.10.0_vue@3.2.41
   axios: 1.2.2
   element-plus: 2.2.28_vue@3.2.41
@@ -105,6 +107,14 @@ packages:
   /@ctrl/tinycolor/3.5.0:
     resolution: {integrity: sha512-tlJpwF40DEQcfR/QF+wNMVyGMaO9FQp6Z1Wahj4Gk3CJQYHwA2xVG7iKDFdW6zuxZY9XWOpGcfNCTsX4McOsOg==}
     engines: {node: '>=10'}
+    dev: false
+
+  /@element-plus/icons-vue/1.1.4_vue@3.2.41:
+    resolution: {integrity: sha512-Iz/nHqdp1sFPmdzRwHkEQQA3lKvoObk8azgABZ81QUOpW9s/lUyQVUSh0tNtEPZXQlKwlSh7SPgoVxzrE0uuVQ==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      vue: 3.2.41
     dev: false
 
   /@element-plus/icons-vue/2.0.10_vue@3.2.41:

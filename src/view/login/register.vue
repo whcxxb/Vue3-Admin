@@ -98,7 +98,7 @@
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    background-color: #f3f4f6;
+    background-color: #f2f6fc;
     position: relative;
     .box-card {
       width: 560px;

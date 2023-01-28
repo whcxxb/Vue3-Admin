@@ -3,18 +3,31 @@ import type { RouteRecordRaw } from 'vue-router'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/dashboard'
   },
   {
-    path: '/home',
-    alias: '/index',
-    name: 'Home',
-    component: () => import('@/view/home/index.vue')
-  },
-  {
-    path: '/about:id',
-    name: 'About',
-    component: () => import('@/view/about/index.vue')
+    path: '/layout',
+    name: 'layout',
+    redirect: '/dashboard',
+    component: () => import('@/view/layout/index.vue'),
+    children: [
+      {
+        path: '/dashboard',
+        name: 'dashboard',
+        component: () => import('@/view/dashboard/index.vue'),
+        meta: {
+          title: '首页'
+        }
+      },
+      {
+        path: '/user',
+        name: 'user',
+        component: () => import('@/view/users/index.vue'),
+        meta: {
+          title: '用户管理'
+        }
+      }
+    ]
   },
   {
     path: '/login',
