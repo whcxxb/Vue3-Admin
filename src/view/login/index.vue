@@ -12,7 +12,7 @@
     password: ''
   })
   const isLoading = ref<boolean>(false)
-  const onSubmit = async () => {
+  const onSubmit = () => {
     isLoading.value = true
     if (form.username.trim() === '' || form.password.trim() === '') {
       ElNotification({
@@ -25,22 +25,42 @@
       }, 500)
       return
     }
-    const res: any = await postAction('/login', form)
-    console.log(res)
-    if (res.success) {
-      form.username = ''
-      form.password = ''
-      isLoading.value = false
-      router.push('/dashboard')
-      userStore.setUserInfo(res.data.username, res.data.tokenStr)
-    } else {
-      ElNotification({
-        title: '登录失败',
-        message: res.message,
-        type: 'error'
+    postAction('/login', form)
+      .then((res: any) => {
+        if (res.success) {
+          form.username = ''
+          form.password = ''
+          isLoading.value = false
+          router.push('/dashboard')
+          userStore.setUserInfo(res.data.username, res.data.tokenStr)
+        } else {
+          ElNotification({
+            title: '登录失败',
+            message: res.message,
+            type: 'error'
+          })
+          isLoading.value = false
+        }
       })
-      isLoading.value = false
-    }
+      .catch((err: any) => {
+        if (err.code === 'ECONNABORTED') {
+          ElNotification({
+            title: '登录失败',
+            message: '服务器请求超时',
+            type: 'error'
+          })
+          isLoading.value = false
+          return
+        } else {
+          ElNotification({
+            title: '登录失败',
+            message: '服务器错误',
+            type: 'error'
+          })
+          isLoading.value = false
+          return
+        }
+      })
   }
   onMounted(() => {
     document.onkeydown = (e: any) => {
