@@ -18,7 +18,11 @@
             style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
             @change="changeStatus(scope.row)"
           />
-          <el-button size="small" type="primary" link>删除</el-button>
+          <el-popconfirm width="160" title="是否删除此账号?" @confirm="onDel(scope.row._id)">
+            <template #reference>
+              <el-button size="small" type="primary" link>删除</el-button>
+            </template>
+          </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
@@ -26,7 +30,7 @@
 </template>
 <style lang="less" scoped>
   .box-card {
-    width: 100%;
+    // width: 100%;
   }
 </style>
 
@@ -57,5 +61,8 @@
         ElMessage.error(res.msg)
       }
     })
+  }
+  const onDel = (id: string) => {
+    console.log(id)
   }
 </script>
