@@ -2,9 +2,11 @@ lockfileVersion: 5.4
 
 specifiers:
   '@element-plus/icons-vue': 1.x
+  '@types/marked': ^4.0.8
   '@types/node': ^18.11.9
   '@typescript-eslint/eslint-plugin': ^5.42.0
   '@typescript-eslint/parser': ^5.42.0
+  '@unocss/reset': ^0.49.2
   '@vitejs/plugin-vue': ^3.2.0
   '@vueuse/core': ^9.10.0
   axios: ^1.2.2
@@ -16,6 +18,7 @@ specifiers:
   eslint-plugin-vue: ^9.7.0
   husky: ^8.0.1
   less: ^4.1.3
+  md-editor-v3: ^2.7.2
   pinia: ^2.0.23
   pinia-plugin-persistedstate: ^3.0.2
   prettier: ^2.7.1
@@ -30,17 +33,20 @@ specifiers:
 
 dependencies:
   '@element-plus/icons-vue': 1.1.4_vue@3.2.41
+  '@unocss/reset': 0.49.2
   '@vueuse/core': 9.10.0_vue@3.2.41
   axios: 1.2.2
   echarts: 5.4.1
   element-plus: 2.2.28_vue@3.2.41
   less: 4.1.3
+  md-editor-v3: 2.7.2
   pinia: 2.0.23_l7r24p6nevbtlimqmqcwa3ouhu
   pinia-plugin-persistedstate: 3.0.2_pinia@2.0.23
   vue: 3.2.41
   vue-router: 4.1.6_vue@3.2.41
 
 devDependencies:
+  '@types/marked': 4.0.8
   '@types/node': 18.11.9
   '@typescript-eslint/eslint-plugin': 5.42.0_6xw5wg2354iw4zujk2f3vyfrzu
   '@typescript-eslint/parser': 5.42.0_wyqvi574yv7oiwfeinomdzmc3m
@@ -299,6 +305,10 @@ packages:
     resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
     dev: false
 
+  /@types/marked/4.0.8:
+    resolution: {integrity: sha512-HVNzMT5QlWCOdeuBsgXP8EZzKUf0+AXzN+sLmjvaB3ZlLqO+e4u0uXrdw9ub69wBKFs+c6/pA4r9sy6cCDvImw==}
+    dev: true
+
   /@types/node/18.11.9:
     resolution: {integrity: sha512-CRpX21/kGdzjOpFsZSkcrXMGIBWMGNIHXXBVFSH+ggkftxg+XYP20TESbh+zFvFj3EQOl5byk0HTRn1IL6hbqg==}
     dev: true
@@ -550,6 +560,10 @@ packages:
   /@unocss/reset/0.48.3:
     resolution: {integrity: sha512-IVydK/VbRJp2ms6Yl1M3/FzHWOj9fof1HsqKnC6nE5S1lBq7856yhTyY9TOQoA2sPOa+pblc4o6vUcgRrnl1lg==}
     dev: true
+
+  /@unocss/reset/0.49.2:
+    resolution: {integrity: sha512-O0dZDhIqUaB2Uwq2O9IVA2wqpC/kojTHWMGYNSw9OWoaVGyUAd5Ale+tB3RTw1QDbVQCasWIEmypbe0s+AI7xQ==}
+    dev: false
 
   /@unocss/scope/0.48.3:
     resolution: {integrity: sha512-WHDvJd9Eh2svkrw2YVlh2phVVkHrbXP24bPOvMm/NddB4zoXhOPWnBdFKQy4CXX09Zxkq9ne3+9lc68dWQW9sg==}
@@ -1932,6 +1946,11 @@ packages:
       pify: 4.0.1
       semver: 5.7.1
     optional: true
+
+  /md-editor-v3/2.7.2:
+    resolution: {integrity: sha512-CyLG7yZhMyKplXO/MYIccpL0AOcnys74cMpbBG77rmXWlANAmzLrznUU++g6MohTv3DCRNTz+5Uh/w9h9P2sSA==}
+    engines: {node: '>=12.0.0'}
+    dev: false
 
   /mdn-data/2.0.30:
     resolution: {integrity: sha512-GaqWWShW4kv/G9IEucWScBx9G1/vsFZZJUO+tD26M8J8z3Kw5RDQjaoZe03YAClgeS/SWPOcb4nkFBTEi5DUEA==}

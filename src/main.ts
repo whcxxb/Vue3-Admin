@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import './style/base.less'
+// import '@unocss/reset/tailwind.css'
 import 'uno.css'
 import './assets/iconfont/iconfont.js'
 import App from './App.vue'

@@ -113,6 +113,7 @@
       }
     }
     .el-main {
+      overflow: auto;
       background-color: #f2f6fc;
     }
   }

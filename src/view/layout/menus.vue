@@ -2,7 +2,7 @@
   <el-menu @select="select" :default-active="path">
     <el-menu-item index="/dashboard">仪表盘</el-menu-item>
     <el-menu-item index="/user">用户管理</el-menu-item>
-    <el-menu-item index="3">文章管理</el-menu-item>
+    <el-menu-item index="/article">文章管理</el-menu-item>
     <el-menu-item index="4">评论管理</el-menu-item>
     <el-menu-item index="5">分类管理</el-menu-item>
     <el-menu-item index="6">标签管理</el-menu-item>

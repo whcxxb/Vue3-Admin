@@ -26,6 +26,14 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: '用户管理'
         }
+      },
+      {
+        path: '/article',
+        name: 'article',
+        component: () => import('@/view/article/index.vue'),
+        meta: {
+          title: '文章管理'
+        }
       }
     ]
   },

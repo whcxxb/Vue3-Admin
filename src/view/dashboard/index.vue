@@ -8,7 +8,7 @@
   import { ref, onMounted } from 'vue'
   const chart = ref<any>(null)
   onMounted(() => {
-    const chartBox = echarts.init(chart.value)
+    const chartBox = echarts.init(chart.value, undefined, { renderer: 'svg' })
     const option = {
       tooltip: {},
       legend: {
@@ -61,7 +61,7 @@
 </script>
 <style lang="less" scoped>
   .box-card {
-    height: 100%;
+    height: 93%;
     .chart-box {
       width: 100%;
       height: 550px;
