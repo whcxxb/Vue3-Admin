@@ -3,7 +3,7 @@
     <div class="w-1/3 mb-3">
       <el-input v-model="article.title" placeholder="文章标题"></el-input>
     </div>
-    <md-editor v-model="text" @onSave="onSave" @onUploadImg="onUploadImg" />
+    <md-editor @onUploadImg="onUploadImg" v-model="text" @onSave="onSave" />
     <!-- <div v-html="htmlStr"></div> -->
     <!-- <md-editor v-model="htmlStr" preview-only /> -->
     <template #footer>
@@ -18,6 +18,7 @@
   import { ref, reactive } from 'vue'
   import MdEditor from 'md-editor-v3'
   import 'md-editor-v3/lib/style.css'
+  import { uploadFileAction } from '@/utils/http/api'
   MdEditor.config({
     // 编辑器配置 去掉标题锚点
     markedRenderer(renderer) {
@@ -33,14 +34,37 @@
   const article = reactive({
     title: '',
     content: '',
-    img: []
+    img: <any>[]
   })
-  const onUploadImg = (file: File) => {
-    console.log(file)
+  const onUploadImg = async (files: any, callback: any) => {
+    const res = await Promise.all(
+      files.map((file: any) => {
+        return new Promise((rev, rej) => {
+          const form = new FormData()
+          form.append('file', file)
+          uploadFileAction('/upload', form).then((res: any) => {
+            rev(res.data.imgUrl)
+          })
+          // axios
+          //   .post('/api/img/upload', form, {
+          //     headers: {
+          //       'Content-Type': 'multipart/form-data'
+          //     }
+          //   })
+          //   .then((res) => rev(res))
+          //   .catch((error) => rej(error))
+        })
+      })
+    )
+    callback(
+      res.map((item) => {
+        article.img.push(item)
+        return item
+      })
+    )
   }
   const onSave = (val: string) => {
     console.log(val)
-    // markDownStr.value = val
     article.content = val
   }
   const dialogVisible = ref(false)
