@@ -9,13 +9,15 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="dialogVisible = false"> 添加 </el-button>
+        <el-button type="primary" @click="addArticle"> 添加 </el-button>
       </span>
     </template>
   </el-dialog>
 </template>
 <script setup lang="ts">
+  import { ElMessage } from 'element-plus'
   import { ref, reactive } from 'vue'
+  import { uploadFileAction, postAction } from '@/utils/http/api'
   import MdEditor from 'md-editor-v3'
   import 'md-editor-v3/lib/style.css'
   MdEditor.config({
@@ -30,22 +32,61 @@
   })
   const text = ref<string>('')
   // const markDownStr = ref<string>('')
-  const article = reactive({
+  interface Article {
+    title: string
+    content: string
+    img: string[]
+  }
+  const article: Article = reactive({
     title: '',
     content: '',
     img: []
   })
-  const onUploadImg = (file: File) => {
-    console.log(file)
+  const onUploadImg = async (files: any, callback: any) => {
+    const res = await Promise.all(
+      files.map((file: any) => {
+        return new Promise((rev, rej) => {
+          const form = new FormData()
+          form.append('file', file)
+          uploadFileAction('/upload', form).then((res) => {
+            rev(res.data.imgUrl)
+          })
+        })
+      })
+    )
+    callback(
+      res.map((item) => {
+        return item
+      })
+    )
   }
   const onSave = (val: string) => {
-    console.log(val)
-    // markDownStr.value = val
+    article.img = []
     article.content = val
+    let url = val.match(/!\[.*?\]\((.*?)\)/g)
+    if (url) {
+      url = url.map((item: any) => {
+        return item.match(/!\[.*?\]\((.*?)\)/)[1]
+      })
+      article.img = url
+    }
   }
   const dialogVisible = ref(false)
   const show = () => {
     dialogVisible.value = true
+  }
+  const addArticle = () => {
+    if (!article.title && !article.content) {
+      ElMessage.warning('标题或内容不能为空')
+      return
+    }
+    postAction('/aaArticle', article).then((res: any) => {
+      if (res.success) {
+        ElMessage.success('添加成功')
+        dialogVisible.value = false
+      }
+    })
+    console.log(article)
   }
   defineExpose({
     show
