@@ -4,23 +4,20 @@
       <el-button type="primary" class="ml-2" @click="onAdd">添加文章</el-button>
     </div>
     <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="username" label="文章标题" />
-      <el-table-column prop="isEnable" label="是否显示">
-        <template #default="scope">
+      <el-table-column prop="title" label="文章标题" />
+      <el-table-column prop="content" label="文章内容">
+        <!-- <template #default="scope">
           <el-tag v-if="scope.row.isEnable" type="success">启用</el-tag>
           <el-tag v-else type="danger">停用</el-tag>
-        </template>
+        </template> -->
       </el-table-column>
+      <el-table-column prop="imgArr" label="图片" />
       <el-table-column prop="createTime" label="发布日期" />
       <el-table-column label="操作" fixed="right" width="120" align="center">
         <template #default="scope">
-          <el-switch
-            size="small"
-            v-model="scope.row.isEnable"
-            class="ml-2"
-            style="--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949"
-            @change="changeStatus(scope.row)"
-          />
+          <el-button size="small" type="primary" @click="editArticle(scope.row)" link
+            >编辑</el-button
+          >
           <el-popconfirm width="160" title="是否删除此账号?" @confirm="onDel(scope.row._id)">
             <template #reference>
               <el-button size="small" type="primary" link>删除</el-button>
@@ -40,15 +37,21 @@
   const addArticle = ref<any>(null)
   let tableData = reactive<object[]>([])
   const getUser = async () => {
-    const res = await getAction('/userlist')
-    res.data.forEach((item: any) => {
+    const res = await getAction('/articleList')
+    console.log(res)
+    res.data.list.forEach((item: any) => {
       item.createTime = new Date(item.createTime).toLocaleString()
     })
-    tableData.push(...res.data)
+    tableData.push(...res.data.list)
+    console.log(tableData)
   }
   onMounted(() => {
     getUser()
   })
+  const editArticle = (row: any) => {
+    console.log(row)
+    addArticle.value.show(row, 2)
+  }
   const changeStatus = (row: any) => {
     console.log(row._id)
     postAction('updatestatus', {
@@ -68,6 +71,6 @@
 
   // 添加文章
   const onAdd = () => {
-    addArticle.value.show()
+    addArticle.value.show(null, 1)
   }
 </script>

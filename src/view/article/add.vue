@@ -1,10 +1,9 @@
 <template>
-  <el-dialog v-model="dialogVisible" title="添加文章" width="90%">
+  <el-dialog v-model="dialogVisible" :title="title" width="90%">
     <div class="w-1/3 mb-3">
       <el-input v-model="article.title" placeholder="文章标题"></el-input>
     </div>
     <md-editor @onUploadImg="onUploadImg" v-model="text" @onSave="onSave" />
-    <!-- <div v-html="htmlStr"></div> -->
     <!-- <md-editor v-model="htmlStr" preview-only /> -->
     <template #footer>
       <span class="dialog-footer">
@@ -31,7 +30,9 @@
     }
   })
   const text = ref<string>('')
-  // const markDownStr = ref<string>('')
+  const title = ref<string>('添加文章')
+  const isN = ref<number>(0)
+  const articleID = ref<string>('')
   interface Article {
     title: string
     content: string
@@ -72,7 +73,23 @@
     }
   }
   const dialogVisible = ref(false)
-  const show = () => {
+  const show = (res: any, n: number) => {
+    isN.value = n
+    articleID.value = res._id
+    if (n === 2) {
+      title.value = '修改文章'
+      article.title = res.title
+      article.content = res.content
+      article.img = res.img
+      text.value = res.content
+      console.log(text.value)
+    } else {
+      title.value = '添加文章'
+      article.title = ''
+      article.content = ''
+      article.img = []
+      text.value = ''
+    }
     dialogVisible.value = true
   }
   const addArticle = () => {
@@ -80,13 +97,31 @@
       ElMessage.warning('标题或内容不能为空')
       return
     }
-    postAction('/aaArticle', article).then((res: any) => {
-      if (res.success) {
-        ElMessage.success('添加成功')
-        dialogVisible.value = false
-      }
-    })
-    console.log(article)
+    if (isN.value === 1) {
+      postAction('/aadArticle', article).then((res: any) => {
+        if (res.success) {
+          ElMessage.success(res.msg)
+          dialogVisible.value = false
+        } else {
+          ElMessage.success(res.msg)
+          return
+        }
+      })
+    }
+    if (isN.value === 2) {
+      postAction('/editArticle', {
+        id: articleID.value,
+        ...article
+      }).then((res: any) => {
+        if (res.success) {
+          ElMessage.success(res.msg)
+          dialogVisible.value = false
+        } else {
+          ElMessage.success(res.msg)
+          return
+        }
+      })
+    }
   }
   defineExpose({
     show

@@ -65,10 +65,8 @@
       })
   }
   onMounted(() => {
-    // 需要改进 判断是否在登录页面
     document.onkeydown = (e: any) => {
-      if (e.keyCode === 13 && path === '/login') {
-        console.log('执行了')
+      if (path === '/login' && e.keyCode === 13) {
         onSubmit()
       }
     }
