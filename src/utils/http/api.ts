@@ -12,9 +12,12 @@ export const postAction = (url: string, params?: any) => {
 export const putAction = (url: string, params?: any) => {
   return http.put(url, params)
 }
+
 // upload
 export const uploadFileAction = (url: string, params?: any) => {
   return http.post(url, params, {
-    headers: { 'Content-Type': 'multipart/form-data' }
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
   })
 }

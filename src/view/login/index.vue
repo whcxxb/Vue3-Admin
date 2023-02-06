@@ -1,11 +1,13 @@
 <script setup lang="ts">
   import { reactive, ref, onMounted } from 'vue'
   import { useUserStore } from '@/store/user'
-  import { useRouter } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   import { postAction } from '@/utils/http/api'
   // import { ElMessage } from 'element-plus'
   import { ElNotification } from 'element-plus'
   const router = useRouter()
+  const route = useRoute()
+  const path = route.path
   const userStore = useUserStore()
   const form = reactive({
     username: '',
@@ -63,8 +65,10 @@
       })
   }
   onMounted(() => {
+    // 需要改进 判断是否在登录页面
     document.onkeydown = (e: any) => {
-      if (e.keyCode === 13) {
+      if (e.keyCode === 13 && path === '/login') {
+        console.log('执行了')
         onSubmit()
       }
     }
