@@ -13,7 +13,13 @@
       </el-table-column>
       <el-table-column prop="imgArr" label="图片">
         <template #default="scope">
-          <img :src="scope.row.imgArr[0]" alt="" width="100" height="100" />
+          <img
+            v-if="scope.row.imgArr.length !== 0"
+            :src="scope.row.imgArr[0]"
+            alt=""
+            width="100"
+            height="100"
+          />
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="发布日期" />
@@ -31,7 +37,7 @@
       </el-table-column>
     </el-table>
   </el-card>
-  <add ref="addArticle"></add>
+  <add @refresh="refresh" ref="addArticle"></add>
 </template>
 <script setup lang="ts">
   import { ref, reactive, computed, watch, onMounted, onUnmounted } from 'vue'
@@ -40,7 +46,7 @@
   import add from './add.vue'
   const addArticle = ref<any>(null)
   let tableData = reactive<object[]>([])
-  const getUser = async () => {
+  const getArticleList = async () => {
     const res = await getAction('/articleList')
     console.log(res)
     res.data.list.forEach((item: any) => {
@@ -50,25 +56,25 @@
     console.log(tableData)
   }
   onMounted(() => {
-    getUser()
+    getArticleList()
   })
   const editArticle = (row: any) => {
     console.log(row)
     addArticle.value.show(row, 2)
   }
-  const changeStatus = (row: any) => {
-    console.log(row._id)
-    postAction('updatestatus', {
-      _id: row._id,
-      isEnable: row.isEnable
-    }).then((res: any) => {
-      if (res.success) {
-        ElMessage.success(res.msg)
-      } else {
-        ElMessage.error(res.msg)
-      }
-    })
-  }
+  // const changeStatus = (row: any) => {
+  //   console.log(row._id)
+  //   postAction('updatestatus', {
+  //     _id: row._id,
+  //     isEnable: row.isEnable
+  //   }).then((res: any) => {
+  //     if (res.success) {
+  //       ElMessage.success(res.msg)
+  //     } else {
+  //       ElMessage.error(res.msg)
+  //     }
+  //   })
+  // }
   const onDel = (id: string) => {
     console.log(id)
   }
@@ -76,5 +82,10 @@
   // 添加文章
   const onAdd = () => {
     addArticle.value.show(null, 1)
+  }
+
+  const refresh = () => {
+    tableData = []
+    getArticleList()
   }
 </script>

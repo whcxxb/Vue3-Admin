@@ -19,6 +19,8 @@
   import { uploadFileAction, postAction } from '@/utils/http/api'
   import MdEditor from 'md-editor-v3'
   import 'md-editor-v3/lib/style.css'
+  // 刷新列表
+  const emit = defineEmits(['refresh'])
   MdEditor.config({
     // 编辑器配置 去掉标题锚点
     markedRenderer(renderer) {
@@ -103,6 +105,8 @@
       postAction('/aadArticle', article).then((res: any) => {
         if (res.success) {
           ElMessage.success(res.msg)
+          // 发送事件
+          emit('refresh')
           dialogVisible.value = false
         } else {
           ElMessage.success(res.msg)
