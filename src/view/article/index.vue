@@ -11,7 +11,11 @@
           <el-tag v-else type="danger">停用</el-tag>
         </template> -->
       </el-table-column>
-      <el-table-column prop="imgArr" label="图片" />
+      <el-table-column prop="imgArr" label="图片">
+        <template #default="scope">
+          <img :src="scope.row.imgArr[0]" alt="" width="100" height="100" />
+        </template>
+      </el-table-column>
       <el-table-column prop="createTime" label="发布日期" />
       <el-table-column label="操作" fixed="right" width="120" align="center">
         <template #default="scope">

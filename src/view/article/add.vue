@@ -75,7 +75,7 @@
   const dialogVisible = ref(false)
   const show = (res: any, n: number) => {
     isN.value = n
-    articleID.value = res._id
+    articleID.value = res && res._id
     if (n === 2) {
       title.value = '修改文章'
       article.title = res.title
@@ -93,6 +93,8 @@
     dialogVisible.value = true
   }
   const addArticle = () => {
+    // 执行保存
+    onSave(text.value)
     if (!article.title && !article.content) {
       ElMessage.warning('标题或内容不能为空')
       return
