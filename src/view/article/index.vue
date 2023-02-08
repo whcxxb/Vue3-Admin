@@ -36,6 +36,15 @@
         </template>
       </el-table-column>
     </el-table>
+    <!-- 分页 -->
+    <div class="mt-3 flex justify-end">
+      <el-pagination
+        v-model:current-page="currentPage"
+        @current-change="handleCurrentChange"
+        layout="prev, pager, next"
+        :total="total"
+      />
+    </div>
   </el-card>
   <add @refresh="refresh" ref="addArticle"></add>
 </template>
@@ -46,9 +55,19 @@
   import add from './add.vue'
   const addArticle = ref<any>(null)
   let tableData = reactive<object[]>([])
+  const total = ref(0)
+  const currentPage = ref(1)
+  const handleCurrentChange = (val: number) => {
+    currentPage.value = val
+    refresh()
+  }
   const getArticleList = async () => {
-    const res = await getAction('/articleList')
+    const res = await getAction('/articleList', {
+      page: currentPage.value,
+      size: 10
+    })
     console.log(res)
+    total.value = res.data.total
     res.data.list.forEach((item: any) => {
       item.createTime = new Date(item.createTime).toLocaleString()
     })
@@ -85,7 +104,8 @@
   }
 
   const refresh = () => {
-    tableData = []
+    // 清空响应式数据
+    tableData.splice(0, tableData.length)
     getArticleList()
   }
 </script>
