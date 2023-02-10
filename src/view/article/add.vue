@@ -19,7 +19,6 @@
   import { uploadFileAction, postAction } from '@/utils/http/api'
   import MdEditor from 'md-editor-v3'
   import 'md-editor-v3/lib/style.css'
-  // 刷新列表
   const emit = defineEmits(['refresh'])
   MdEditor.config({
     // 编辑器配置 去掉标题锚点
