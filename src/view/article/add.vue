@@ -73,6 +73,7 @@
       })
       article.img = url
     }
+    console.log('cccc', article)
   }
   const dialogVisible = ref(false)
   const show = (res: any, n: number) => {
@@ -84,7 +85,6 @@
       article.content = res.content
       article.img = res.img
       text.value = res.content
-      console.log(text.value)
     } else {
       title.value = '添加文章'
       article.title = ''
