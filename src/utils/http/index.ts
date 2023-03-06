@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 import { useUserStore } from '@/store/user'
 import router from '@/router'
 const http = axios.create({
-  baseURL: 'http://localhost:3100/api',
+  baseURL: 'http://101.42.17.104:3100/api',
   timeout: 2000,
   headers: {
     'Content-Type': 'application/json'

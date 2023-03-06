@@ -66,19 +66,16 @@
       page: currentPage.value,
       size: 10
     })
-    console.log(res)
     total.value = res.data.total
     res.data.list.forEach((item: any) => {
       item.createTime = new Date(item.createTime).toLocaleString()
     })
     tableData.push(...res.data.list)
-    console.log(tableData)
   }
   onMounted(() => {
     getArticleList()
   })
   const editArticle = (row: any) => {
-    console.log(row)
     addArticle.value.show(row, 2)
   }
   // const changeStatus = (row: any) => {

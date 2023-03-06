@@ -72,7 +72,6 @@
       })
       article.img = url
     }
-    console.log('cccc', article)
   }
   const dialogVisible = ref(false)
   const show = (res: any, n: number) => {
@@ -120,6 +119,7 @@
       }).then((res: any) => {
         if (res.success) {
           ElMessage.success(res.msg)
+          emit('refresh')
           dialogVisible.value = false
         } else {
           ElMessage.success(res.msg)
