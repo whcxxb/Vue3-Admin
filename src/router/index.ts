@@ -12,6 +12,7 @@ const router = createRouter({
 // const userStore = useUserStore(pinia)
 
 router.beforeEach((to) => {
+  console.log('to', to)
   const { title } = to.meta
   document.title = (title as string) || 'blogAdmin'
   const token = JSON.parse(window.localStorage.getItem('user') as string)?.token
