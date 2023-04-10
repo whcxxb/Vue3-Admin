@@ -12,7 +12,14 @@ export const postAction = (url: string, params?: any) => {
 export const putAction = (url: string, params?: any) => {
   return http.put(url, params)
 }
-
+// delete
+export const deleteAction = (url: string, params?: any) => {
+  return http({
+    method: 'delete',
+    url,
+    data: params
+  })
+}
 // upload
 export const uploadFileAction = (url: string, params?: any) => {
   return http.post(url, params, {

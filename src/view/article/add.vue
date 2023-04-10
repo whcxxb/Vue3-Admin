@@ -20,16 +20,16 @@
   import MdEditor from 'md-editor-v3'
   import 'md-editor-v3/lib/style.css'
   const emit = defineEmits(['refresh'])
-  MdEditor.config({
-    // 编辑器配置 去掉标题锚点
-    markedRenderer(renderer) {
-      renderer.heading = (text, level) => {
-        const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-')
-        return `<h${level} id="${escapedText}">${text}</h${level}>`
-      }
-      return renderer
-    }
-  })
+  // MdEditor.config({
+  //   // 编辑器配置 去掉标题锚点
+  //   markedRenderer(renderer) {
+  //     renderer.heading = (text, level) => {
+  //       const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-')
+  //       return `<h${level} id="${escapedText}">${text}</h${level}>`
+  //     }
+  //     return renderer
+  //   }
+  // })
   const text = ref<string>('')
   const title = ref<string>('添加文章')
   const isN = ref<number>(0)

@@ -113,7 +113,7 @@
       }
     }
     .el-main {
-      overflow: auto;
+      padding: 10px !important;
       background-color: #f2f6fc;
     }
   }
