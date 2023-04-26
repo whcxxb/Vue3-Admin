@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { reactive, ref, onMounted } from 'vue'
+  import { reactive, ref, onMounted, onUnmounted } from 'vue'
   import { useUserStore } from '@/store/user'
   import { useRoute, useRouter } from 'vue-router'
   import { postAction } from '@/utils/http/api'
@@ -70,6 +70,10 @@
         onSubmit()
       }
     }
+  })
+  // 清除enter事件
+  onUnmounted(() => {
+    document.onkeydown = null
   })
   const goRegister = (n: number) => {
     if (n === 1) {
