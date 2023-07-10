@@ -1,8 +1,11 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import { useUserStore } from '@/store/user'
 import router from '@/router'
+// console.log('地址', import.meta.env.VITE_BASE_URL)
+const baseURL: string = import.meta.env.VITE_BASE_URL
 const http = axios.create({
-  baseURL: 'http://101.42.17.104:3100/api',
+  // baseURL: 'http://101.42.17.104:3100/api',
+  baseURL,
   timeout: 2000,
   headers: {
     'Content-Type': 'application/json'
@@ -18,6 +21,7 @@ http.interceptors.request.use(
       return config
     }
     if (userStore.token) {
+      // config.headers = { Authorization: 'Bearer ' + userStore.token }
       config.headers.Authorization = 'Bearer ' + userStore.token
     }
     return config
